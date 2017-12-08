@@ -66,7 +66,9 @@ class MarkovSentenceGenerator # :nodoc:
   #
   # @param [Int] wordcount The number of words you want the generated string to contain.
   # @return [String] the words, hopefully forming sentences generated.
-  def generate(wordcount)
+  def generate(wordcount, seed)
+    @seed = seed
+
     if @dictionary.dictionary.empty?
       raise EmptyDictionaryError.new("The dictionary is empty! Parse a source file/string!")
     end
@@ -91,7 +93,7 @@ class MarkovSentenceGenerator # :nodoc:
   #
   # @param [Int] sentencecount The number of sentences you want the generated string to contain.
   # @return [String] the sentence(s) generated.
-  def generate_sentence(sentencecount, seed = nil)
+  def generate_sentence(sentencecount, seed)
     @seed = seed
 
     if @dictionary.dictionary.empty?
