@@ -34,7 +34,12 @@ class MarkovSentenceGenerator # :nodoc:
   # @return [String] a string containing a random dictionary key.
   def random_word
     words = @dictionary.dictionary.keys
-    words[rand(words.length)]
+
+    if @seed
+      words[Random.new(@seed).rand(words.length)]
+    else
+      words[rand(words.length)]
+    end
   end
 
   # Generates a random capitalized word via picking a random word from a list
@@ -86,7 +91,9 @@ class MarkovSentenceGenerator # :nodoc:
   #
   # @param [Int] sentencecount The number of sentences you want the generated string to contain.
   # @return [String] the sentence(s) generated.
-  def generate_sentence(sentencecount)
+  def generate_sentence(sentencecount, seed = nil)
+    @seed = seed
+
     if @dictionary.dictionary.empty?
       raise EmptyDictionaryError.new("The dictionary is empty! Parse a source file/string!")
     end
