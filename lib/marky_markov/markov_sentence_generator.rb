@@ -34,7 +34,7 @@ class MarkovSentenceGenerator # :nodoc:
   # @return [String] a string containing a random dictionary key.
   def random_word
     words = @dictionary.dictionary.keys
-
+    puts "SEED: #{@seed}"
     if @seed
       words[Random.new(@seed).rand(words.length)]
     else
